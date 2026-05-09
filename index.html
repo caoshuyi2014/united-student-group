@@ -6,208 +6,73 @@
     <title>USG Official</title>
     <style>
         /* 基础样式 */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0f172a;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* 浅色主题样式 */
-        body.light-theme {
-            background-color: #f8fafc;
-            color: #1e293b;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #0f172a; color: #fff; transition: background-color 0.3s, color 0.3s; }
+        body.light-theme { background-color: #f8fafc; color: #1e293b; }
 
         /* 导航栏 */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 10%;
-        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 10%; background-color: rgba(15, 23, 42, 0.95); }
+        body.light-theme nav { background-color: rgba(248, 250, 252, 0.95); }
+        .logo { color: #3b82f6; font-size: 1.5rem; font-weight: bold; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { color: inherit; text-decoration: none; }
+        .auth-buttons { display: flex; gap: 1rem; align-items: center; }
+        .btn { padding: 0.5rem 1.5rem; border-radius: 5px; text-decoration: none; border: none; cursor: pointer; }
+        .btn-login { border: 1px solid #3b82f6; color: #3b82f6; background: transparent; }
+        .btn-signup { background-color: #3b82f6; color: white; }
+        #theme-toggle { background: transparent; border: none; color: inherit; font-size: 1.2rem; cursor: pointer; }
 
-        .logo {
-            color: #3b82f6;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-
-        .btn-login {
-            border: 1px solid #3b82f6;
-            color: #3b82f6;
-        }
-
-        .btn-signup {
-            background-color: #3b82f6;
-            color: white;
-        }
-
-        /* 主题切换按钮 */
-        #theme-toggle {
-            background: transparent;
-            border: none;
-            color: inherit;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-left: 1rem;
-        }
-
-        /* 主横幅 */
-        .hero {
-            text-align: center;
-            padding: 4rem 10%;
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            color: #94a3b8;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            line-height: 1.6;
-        }
-
-        .btn-join {
-            background-color: #3b82f6;
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-block;
-        }
+        /* 通用板块 */
+        section { padding: 2rem 10%; display: none; }
+        section.active { display: block; }
+        .hero { text-align: center; padding: 4rem 10%; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .hero p { color: #94a3b8; max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; }
+        body.light-theme .hero p { color: #64748b; }
+        .btn-join { background-color: #3b82f6; color: white; padding: 0.8rem 2rem; border-radius: 5px; text-decoration: none; display: inline-block; }
 
         /* 新闻板块 */
-        .news-section {
-            padding: 2rem 10%;
-        }
-
-        .news-section h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .news-card {
-            background-color: #1e293b;
-            padding: 1.5rem;
-            border-radius: 8px;
-            transition: background-color 0.3s;
-        }
-
-        body.light-theme .news-card {
-            background-color: #e2e8f0;
-        }
-
-        .news-card h3 {
-            color: #3b82f6;
-            margin-top: 0;
-        }
+        .news-section h2, .members-section h2, .about-section h2, .admin-section h2 { text-align: center; margin-bottom: 2rem; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .news-card { background-color: #1e293b; padding: 1.5rem; border-radius: 8px; }
+        body.light-theme .news-card { background-color: #e2e8f0; }
+        .news-card h3 { color: #3b82f6; margin-bottom: 0.5rem; }
+        .news-card p { color: #94a3b8; }
+        body.light-theme .news-card p { color: #475569; }
 
         /* 成员列表 */
-        .members-section {
-            padding: 2rem 10%;
-            display: none; /* 默认隐藏，点击Members显示 */
-        }
+        .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+        .member-card { background-color: #1e293b; padding: 1.5rem; border-radius: 8px; text-align: center; }
+        body.light-theme .member-card { background-color: #e2e8f0; }
+        .member-card img { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 1rem; }
+        .member-card .role { color: #3b82f6; font-weight: bold; margin: 0.5rem 0; }
+        .member-card .bio { color: #94a3b8; font-size: 0.9rem; line-height: 1.4; }
+        body.light-theme .member-card .bio { color: #475569; }
 
-        .members-section h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .members-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .member-card {
-            background-color: #1e293b;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-
-        body.light-theme .member-card {
-            background-color: #e2e8f0;
-        }
-
-        .member-card img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-        }
+        /* 管理面板 */
+        .admin-section { max-width: 800px; margin: 0 auto; }
+        .login-box { background-color: #1e293b; padding: 2rem; border-radius: 8px; text-align: center; }
+        body.light-theme .login-box { background-color: #e2e8f0; }
+        .login-box input { padding: 0.5rem; margin: 1rem 0; width: 200px; border-radius: 5px; border: 1px solid #3b82f6; background: transparent; color: inherit; }
+        .login-box button { background-color: #3b82f6; color: white; padding: 0.5rem 1.5rem; border: none; border-radius: 5px; cursor: pointer; }
+        .editor { display: none; }
+        .member-form { background-color: #1e293b; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; }
+        body.light-theme .member-form { background-color: #e2e8f0; }
+        .member-form input, .member-form textarea { width: 100%; padding: 0.5rem; margin: 0.5rem 0; border-radius: 5px; border: 1px solid #3b82f6; background: transparent; color: inherit; }
+        .member-form button { margin-right: 0.5rem; }
+        .member-item { background-color: #1e293b; padding: 1rem; border-radius: 8px; margin: 0.5rem 0; display: flex; justify-content: space-between; align-items: center; }
+        body.light-theme .member-item { background-color: #e2e8f0; }
+        .member-item button { background-color: #ef4444; color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 3px; cursor: pointer; }
+        .member-item .edit-btn { background-color: #3b82f6; margin-right: 0.5rem; }
 
         /* 访问计数器 */
-        .visit-counter {
-            text-align: center;
-            padding: 1rem;
-            color: #94a3b8;
-        }
+        .visit-counter { text-align: center; padding: 1rem; color: #94a3b8; font-size: 0.9rem; }
+        body.light-theme .visit-counter { color: #64748b; }
 
         /* 公告弹窗 */
-        #announcement {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            color: #1e293b;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 1000;
-        }
-
-        #announcement h3 {
-            color: #3b82f6;
-            margin-top: 0;
-        }
-
-        #announcement button {
-            background-color: #3b82f6;
-            color: white;
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
+        #announcement { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; color: #1e293b; padding: 2rem; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3); display: none; z-index: 1000; max-width: 400px; }
+        #announcement h3 { color: #3b82f6; margin-bottom: 1rem; }
+        #announcement button { background-color: #3b82f6; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -229,7 +94,7 @@
     </nav>
 
     <!-- 主横幅 -->
-    <section id="home" class="hero">
+    <section id="home" class="hero active">
         <h1>United Student Group</h1>
         <p>Empowering students worldwide. Building community, leadership, and future opportunities.</p>
         <a href="#" class="btn-join">Join Now</a>
@@ -249,16 +114,46 @@
             </div>
             <div class="news-card">
                 <h3>新项目启动</h3>
-                <p>我们将推出更多学生支持项目，敬请期待！</p>
+                <p>学生领导力培养计划正式上线！</p>
             </div>
         </div>
+    </section>
+
+    <!-- 关于页面 -->
+    <section id="about" class="about-section">
+        <h2>About USG</h2>
+        <p>United Student Group（USG）是一个面向全球学生的社区组织，致力于为学生提供交流、成长和展示的平台。</p>
+        <p>我们相信，通过跨文化的交流与合作，学生们可以更好地发展领导力、拓展国际视野，并共同创造未来的可能性。</p>
+        <p>无论你来自哪里，只要你有热情、有想法，都可以加入我们，一起建设一个更有活力的学生社区！</p>
     </section>
 
     <!-- 成员列表 -->
     <section id="members" class="members-section">
         <h2>Our Members</h2>
         <div class="members-grid" id="members-list">
-            <!-- JS 会自动填充成员卡片 -->
+            <p style="text-align: center;">加载中...</p>
+        </div>
+    </section>
+
+    <!-- 管理面板 -->
+    <section id="admin" class="admin-section">
+        <div class="login-box" id="admin-login">
+            <h2>管理员登录</h2>
+            <input type="password" id="admin-password" placeholder="请输入管理员密码">
+            <button onclick="adminLogin()">登录</button>
+        </div>
+        <div class="editor" id="admin-editor">
+            <h2>成员名单管理</h2>
+            <div class="member-form">
+                <h3>添加/编辑成员</h3>
+                <input type="text" id="edit-name" placeholder="姓名">
+                <input type="text" id="edit-role" placeholder="职位">
+                <input type="text" id="edit-avatar" placeholder="头像链接（可选）">
+                <textarea id="edit-bio" placeholder="个人简介" rows="3"></textarea>
+                <button class="btn btn-signup" onclick="saveMember()">保存</button>
+                <button class="btn btn-login" onclick="clearForm()">清空</button>
+            </div>
+            <div id="member-list-editor"></div>
         </div>
     </section>
 
@@ -275,6 +170,11 @@
     </div>
 
     <script>
+        // 管理员密码（可以改成你自己的）
+        const ADMIN_PASSWORD = "usg2026";
+        let members = [];
+        let editingIndex = -1;
+
         // 1. 暗黑/浅色模式切换
         const toggle = document.getElementById('theme-toggle');
         toggle.addEventListener('click', () => {
@@ -282,24 +182,136 @@
             toggle.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
         });
 
-        // 2. 成员列表动态生成
-        const members = [
-            { name: "草水一", role: "创始人", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user1" },
-            { name: "同学A", role: "技术负责人", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user2" },
-            { name: "同学B", role: "活动策划", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user3" }
-        ];
+        // 2. 加载成员数据
+        async function loadMembers() {
+            try {
+                const response = await fetch('members.json');
+                members = await response.json();
+                renderMembers();
+                renderEditorMembers();
+            } catch (error) {
+                console.error('加载成员列表失败:', error);
+                document.getElementById('members-list').innerHTML = '<p>暂时无法加载成员信息，请稍后再试。</p>';
+            }
+        }
 
-        const list = document.getElementById('members-list');
-        members.forEach(m => {
-            const card = document.createElement('div');
-            card.className = 'member-card';
-            card.innerHTML = `
-                <img src="${m.avatar}" alt="${m.name}">
-                <h3>${m.name}</h3>
-                <p>${m.role}</p>
-            `;
-            list.appendChild(card);
-        });
+        // 渲染成员列表（前台）
+        function renderMembers() {
+            const list = document.getElementById('members-list');
+            list.innerHTML = '';
+            members.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'member-card';
+                card.innerHTML = `
+                    <img src="${m.avatar || 'https://api.dicebear.com/7.x/avataaars/svg?seed=default'}" alt="${m.name}">
+                    <h3>${m.name}</h3>
+                    <p class="role">${m.role}</p>
+                    <p class="bio">${m.bio}</p>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        // 渲染编辑列表（后台）
+        function renderEditorMembers() {
+            const list = document.getElementById('member-list-editor');
+            list.innerHTML = '';
+            members.forEach((m, index) => {
+                const item = document.createElement('div');
+                item.className = 'member-item';
+                item.innerHTML = `
+                    <span>${m.name} - ${m.role}</span>
+                    <div>
+                        <button class="edit-btn" onclick="editMember(${index})">编辑</button>
+                        <button onclick="deleteMember(${index})">删除</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // 保存成员
+        function saveMember() {
+            const name = document.getElementById('edit-name').value.trim();
+            const role = document.getElementById('edit-role').value.trim();
+            const avatar = document.getElementById('edit-avatar').value.trim();
+            const bio = document.getElementById('edit-bio').value.trim();
+
+            if (!name || !role) {
+                alert('姓名和职位不能为空！');
+                return;
+            }
+
+            const newMember = {
+                name,
+                role,
+                avatar: avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`,
+                bio: bio || '暂无简介'
+            };
+
+            if (editingIndex === -1) {
+                members.push(newMember);
+            } else {
+                members[editingIndex] = newMember;
+                editingIndex = -1;
+            }
+
+            // 模拟保存到文件（实际项目中需要后端支持，这里用本地存储演示）
+            localStorage.setItem('usg-members', JSON.stringify(members));
+            renderMembers();
+            renderEditorMembers();
+            clearForm();
+            alert('保存成功！请复制下面的内容更新到 members.json 文件：\n\n' + JSON.stringify(members, null, 2));
+        }
+
+        // 编辑成员
+        function editMember(index) {
+            editingIndex = index;
+            const m = members[index];
+            document.getElementById('edit-name').value = m.name;
+            document.getElementById('edit-role').value = m.role;
+            document.getElementById('edit-avatar').value = m.avatar;
+            document.getElementById('edit-bio').value = m.bio;
+        }
+
+        // 删除成员
+        function deleteMember(index) {
+            if (confirm('确定要删除这个成员吗？')) {
+                members.splice(index, 1);
+                localStorage.setItem('usg-members', JSON.stringify(members));
+                renderMembers();
+                renderEditorMembers();
+            }
+        }
+
+        // 清空表单
+        function clearForm() {
+            document.getElementById('edit-name').value = '';
+            document.getElementById('edit-role').value = '';
+            document.getElementById('edit-avatar').value = '';
+            document.getElementById('edit-bio').value = '';
+            editingIndex = -1;
+        }
+
+        // 管理员登录
+        function adminLogin() {
+            const password = document.getElementById('admin-password').value;
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-editor').style.display = 'block';
+                // 加载本地存储的成员数据（演示用）
+                const saved = localStorage.getItem('usg-members');
+                if (saved) {
+                    members = JSON.parse(saved);
+                    renderMembers();
+                    renderEditorMembers();
+                } else {
+                    loadMembers();
+                }
+            } else {
+                alert('密码错误！');
+            }
+        }
 
         // 3. 访问计数器
         fetch('https://api.countapi.xyz/hit/usg-official/visits')
@@ -308,27 +320,25 @@
                 document.getElementById('visit-count').textContent = data.value;
             });
 
-        // 4. 公告弹窗（页面加载1秒后弹出）
+        // 4. 公告弹窗
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('announcement').style.display = 'block';
             }, 1000);
+            loadMembers();
         };
 
-        // 5. 页面切换显示
+        // 5. 页面切换
         function showSection(sectionId) {
-            // 隐藏所有板块
             document.querySelectorAll('section').forEach(section => {
-                section.style.display = 'none';
+                section.classList.remove('active');
             });
-            // 显示对应板块
-            if (sectionId === 'home') {
-                document.getElementById('home').style.display = 'block';
-                document.getElementById('news').style.display = 'block';
-            } else if (sectionId === 'members') {
-                document.getElementById('members').style.display = 'block';
+
+            if (sectionId === 'home' || sectionId === 'news') {
+                document.getElementById('home').classList.add('active');
+                document.getElementById('news').classList.add('active');
             } else {
-                alert(`即将上线：${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)} 页面`);
+                document.getElementById(sectionId).classList.add('active');
             }
         }
     </script>
