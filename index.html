@@ -3,288 +3,334 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USG | United Student Group</title>
+    <title>USG Official</title>
     <style>
-        * {
+        /* 基础样式 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #fff;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        :root {
-            --primary: #2563eb;
-            --dark: #0f172a;
-            --light: #f1f5f9;
-            --card: #1e293b;
-        }
-
-        body {
-            background: var(--dark);
-            color: white;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 20px;
+        /* 浅色主题样式 */
+        body.light-theme {
+            background-color: #f8fafc;
+            color: #1e293b;
         }
 
         /* 导航栏 */
         nav {
-            background: rgba(15, 23, 42, 0.9);
-            padding: 18px 0;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            border-bottom: 1px solid #333;
-        }
-
-        .nav-wrap {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 10%;
         }
 
         .logo {
-            font-size: 24px;
+            color: #3b82f6;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: var(--primary);
         }
 
-        .menu {
+        .nav-links {
             display: flex;
-            gap: 24px;
+            gap: 2rem;
         }
 
-        .menu a {
-            color: #ccc;
+        .nav-links a {
+            color: inherit;
             text-decoration: none;
-            font-weight: 500;
-        }
-
-        .menu a:hover {
-            color: var(--primary);
         }
 
         .auth-buttons {
             display: flex;
-            gap: 10px;
+            gap: 1rem;
         }
 
         .btn {
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
         }
 
-        .btn-primary {
-            background: var(--primary);
+        .btn-login {
+            border: 1px solid #3b82f6;
+            color: #3b82f6;
+        }
+
+        .btn-signup {
+            background-color: #3b82f6;
             color: white;
         }
 
-        .btn-outline {
+        /* 主题切换按钮 */
+        #theme-toggle {
             background: transparent;
-            color: white;
-            border: 1px solid var(--primary);
+            border: none;
+            color: inherit;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: 1rem;
         }
 
-        /* 主页横幅 */
+        /* 主横幅 */
         .hero {
-            padding: 100px 0;
             text-align: center;
+            padding: 4rem 10%;
         }
 
         .hero h1 {
-            font-size: 48px;
-            margin-bottom: 16px;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
         .hero p {
-            font-size: 18px;
             color: #94a3b8;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
         }
 
-        /* 弹窗 */
-        .modal {
-            display: none;
+        .btn-join {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        /* 新闻板块 */
+        .news-section {
+            padding: 2rem 10%;
+        }
+
+        .news-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background-color: #1e293b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        body.light-theme .news-card {
+            background-color: #e2e8f0;
+        }
+
+        .news-card h3 {
+            color: #3b82f6;
+            margin-top: 0;
+        }
+
+        /* 成员列表 */
+        .members-section {
+            padding: 2rem 10%;
+            display: none; /* 默认隐藏，点击Members显示 */
+        }
+
+        .members-section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .member-card {
+            background-color: #1e293b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        body.light-theme .member-card {
+            background-color: #e2e8f0;
+        }
+
+        .member-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        /* 访问计数器 */
+        .visit-counter {
+            text-align: center;
+            padding: 1rem;
+            color: #94a3b8;
+        }
+
+        /* 公告弹窗 */
+        #announcement {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
-            justify-content: center;
-            align-items: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            color: #1e293b;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            display: none;
             z-index: 1000;
         }
 
-        .modal-content {
-            background: var(--card);
-            padding: 35px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 420px;
+        #announcement h3 {
+            color: #3b82f6;
+            margin-top: 0;
         }
 
-        .modal-content h2 {
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border-radius: 6px;
-            border: none;
-            background: #334155;
+        #announcement button {
+            background-color: #3b82f6;
             color: white;
-            font-size: 15px;
-        }
-
-        .close {
-            float: right;
-            font-size: 22px;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
             cursor: pointer;
-        }
-
-        /* 板块 */
-        .section {
-            padding: 60px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            margin-bottom: 40px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .card {
-            background: var(--card);
-            padding: 25px;
-            border-radius: 10px;
-        }
-
-        .card h3 {
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-            .menu { display: none; }
+            margin-top: 1rem;
         }
     </style>
 </head>
-
 <body>
-
-<!-- 导航栏 -->
-<nav>
-    <div class="container nav-wrap">
+    <!-- 导航栏 -->
+    <nav>
         <div class="logo">USG Official</div>
-        <div class="menu">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#news">News</a>
-            <a href="#members">Members</a>
-            <a href="#admin">Admin</a>
+        <div class="nav-links">
+            <a href="#home" onclick="showSection('home')">Home</a>
+            <a href="#about" onclick="showSection('about')">About</a>
+            <a href="#news" onclick="showSection('news')">News</a>
+            <a href="#members" onclick="showSection('members')">Members</a>
+            <a href="#admin" onclick="showSection('admin')">Admin</a>
         </div>
         <div class="auth-buttons">
-            <button class="btn btn-outline" onclick="openLogin()">Login</button>
-            <button class="btn btn-primary" onclick="openSignUp()">Sign Up</button>
+            <a href="#" class="btn btn-login">Login</a>
+            <a href="#" class="btn btn-signup">Sign Up</a>
+            <button id="theme-toggle">🌙</button>
         </div>
-    </div>
-</nav>
+    </nav>
 
-<!-- 主页 -->
-<section class="hero" id="home">
-    <div class="container">
+    <!-- 主横幅 -->
+    <section id="home" class="hero">
         <h1>United Student Group</h1>
         <p>Empowering students worldwide. Building community, leadership, and future opportunities.</p>
-        <button class="btn btn-primary" onclick="openSignUp()">Join Now</button>
-    </div>
-</section>
+        <a href="#" class="btn-join">Join Now</a>
+    </section>
 
-<!-- 最新公告 -->
-<section class="section" id="news">
-    <div class="container">
-        <h2 class="section-title">Latest News</h2>
-        <div class="grid">
-            <div class="card">
+    <!-- 新闻板块 -->
+    <section id="news" class="news-section">
+        <h2>Latest News</h2>
+        <div class="news-grid">
+            <div class="news-card">
                 <h3>USG 招新开始</h3>
                 <p>欢迎全球学生加入我们的组织，一起成长！</p>
             </div>
-            <div class="card">
+            <div class="news-card">
                 <h3>线上会议通知</h3>
                 <p>每周六晚上 8 点，全体成员大会。</p>
             </div>
-            <div class="card">
+            <div class="news-card">
                 <h3>新项目启动</h3>
-                <p>学生领导力培养计划正式上线！</p>
+                <p>我们将推出更多学生支持项目，敬请期待！</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- 会员展示 -->
-<section class="section" id="members">
-    <div class="container">
-        <h2 class="section-title">Our Members</h2>
-        <div class="grid">
-            <div class="card"><h3>Student Leader</h3><p>Core Team</p></div>
-            <div class="card"><h3>Member</h3><p>Global Student</p></div>
-            <div class="card"><h3>Volunteer</h3><p>Event Helper</p></div>
+    <!-- 成员列表 -->
+    <section id="members" class="members-section">
+        <h2>Our Members</h2>
+        <div class="members-grid" id="members-list">
+            <!-- JS 会自动填充成员卡片 -->
         </div>
+    </section>
+
+    <!-- 访问计数器 -->
+    <div class="visit-counter">
+        本网站已被访问 <span id="visit-count">0</span> 次
     </div>
-</section>
 
-<!-- 登录弹窗 -->
-<div class="modal" id="loginModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeAll()">&times;</span>
-        <h2>Login</h2>
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button class="btn btn-primary" style="width:100%; margin-top:10px;">Login</button>
+    <!-- 公告弹窗 -->
+    <div id="announcement">
+        <h3>📢 最新公告</h3>
+        <p>每周六晚 8 点全体线上大会，记得参加哦！</p>
+        <button onclick="document.getElementById('announcement').style.display='none'">知道啦</button>
     </div>
-</div>
 
-<!-- 注册弹窗 -->
-<div class="modal" id="signupModal">
-    <div class="modal-content">
-        <span class="close" onclick="closeAll()">&times;</span>
-        <h2>Sign Up</h2>
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button class="btn btn-primary" style="width:100%; margin-top:10px;">Sign Up</button>
-    </div>
-</div>
+    <script>
+        // 1. 暗黑/浅色模式切换
+        const toggle = document.getElementById('theme-toggle');
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            toggle.textContent = document.body.classList.contains('light-theme') ? '☀️' : '🌙';
+        });
 
-<script>
-    function openLogin() {
-        document.getElementById("loginModal").style.display = "flex";
-    }
-    function openSignUp() {
-        document.getElementById("signupModal").style.display = "flex";
-    }
-    function closeAll() {
-        document.getElementById("loginModal").style.display = "none";
-        document.getElementById("signupModal").style.display = "none";
-    }
-</script>
+        // 2. 成员列表动态生成
+        const members = [
+            { name: "草水一", role: "创始人", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user1" },
+            { name: "同学A", role: "技术负责人", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user2" },
+            { name: "同学B", role: "活动策划", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=user3" }
+        ];
 
+        const list = document.getElementById('members-list');
+        members.forEach(m => {
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            card.innerHTML = `
+                <img src="${m.avatar}" alt="${m.name}">
+                <h3>${m.name}</h3>
+                <p>${m.role}</p>
+            `;
+            list.appendChild(card);
+        });
+
+        // 3. 访问计数器
+        fetch('https://api.countapi.xyz/hit/usg-official/visits')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('visit-count').textContent = data.value;
+            });
+
+        // 4. 公告弹窗（页面加载1秒后弹出）
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('announcement').style.display = 'block';
+            }, 1000);
+        };
+
+        // 5. 页面切换显示
+        function showSection(sectionId) {
+            // 隐藏所有板块
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            // 显示对应板块
+            if (sectionId === 'home') {
+                document.getElementById('home').style.display = 'block';
+                document.getElementById('news').style.display = 'block';
+            } else if (sectionId === 'members') {
+                document.getElementById('members').style.display = 'block';
+            } else {
+                alert(`即将上线：${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)} 页面`);
+            }
+        }
+    </script>
 </body>
 </html>
